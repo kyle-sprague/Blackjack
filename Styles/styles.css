@@ -1,0 +1,52 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dealer{
+    background-color: grey; 
+    width: 70%; 
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin: 20px; 
+}
+
+.dealer-hand{
+    background-color: red;
+    width: 70%; 
+    height: 300px; 
+    margin: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.results-container{
+    background-color:green; 
+    width: 50%; 
+    height: 250px; 
+    margin: 50px; 
+}
+
+.player{
+    background-color: grey; 
+    width: 70%; 
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    margin: 50px; 
+}
+
+.player-hand{
+    background-color: red;
+    width: 70%; 
+    height: 300px; 
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}

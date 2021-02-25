@@ -1,0 +1,1 @@
+This project is a game of blackjack where the user plays against the computer who is acting as the dealer. The player can choose to hit and stand just like in the real game and they can also see how many cards the dealer has without knowing what the exact cards are. 
