@@ -58,6 +58,11 @@ function playGame(){
     createDeck()
     shuffle(100000)
 
+    //Actions are hit or stand
+    let playerAction = ""; 
+    let dealerAction = ""; 
+    let bothStand = false; 
+
     //dealing out the first two cards to the player and dealer
     playerCards.push(deck.pop());
     dealerCards.push(deck.pop()); 
@@ -90,9 +95,22 @@ function playGame(){
 
     //This is where the game will acutally take place ending when 
     //either a player gets blackjack, busts, or both players stand
+    let playerSelection; 
+    let buttons = document.querySelectorAll(".button");
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const img = button.querySelector("img");
+            playerSelection = img.alt;
+            
+        });
+    }); 
     
+    
+        
+          
 
     
+       
     
 }
 
@@ -369,5 +387,5 @@ playGame();
 //and visually on the screen
 function hit(user){
     user.push(deck.pop()); 
-
+    console.log("hit"); 
 }

@@ -52,6 +52,20 @@ body{
 }
 
 img{
-    width: 20%; 
+    width: 10%; 
     margin: 10px; 
+}
+
+.options img{
+    width: 70%; 
+}
+
+.button{
+    display: flex;
+    justify-content: center;
+}
+
+.options{
+    display: flex;
+    justify-content: center;
 }
