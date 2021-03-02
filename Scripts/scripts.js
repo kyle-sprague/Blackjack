@@ -2,8 +2,17 @@
 let dealerHand = document.querySelector(".dealer-hand"); 
 let playerHand = document.querySelector(".player-hand"); 
 
+//dealer is how we tell when the dealer stands or hits
+let dealer = document.querySelector(".dealer-play"); 
+
 //player points has the amount of player cards values added
 let playerPoints = document.querySelector(".player-amount"); 
+
+//Buttons is so we can access the buttons later on
+let buttons = document.querySelectorAll(".button");
+
+//results will contain the results container for the game
+let result = document.querySelector(".results-container"); 
 
 //card is an object that all cards are based on
 function Card(name, suit, value){
@@ -58,11 +67,6 @@ function playGame(){
     createDeck()
     shuffle(100000)
 
-    //Actions are hit or stand
-    let playerAction = ""; 
-    let dealerAction = ""; 
-    let bothStand = false; 
-
     //dealing out the first two cards to the player and dealer
     playerCards.push(deck.pop());
     dealerCards.push(deck.pop()); 
@@ -93,26 +97,91 @@ function playGame(){
     //displaying the point total for the player 
     playerPoints.innerHTML = playerAmount;
 
+    let playerSelection; 
+    let dealerSelection; 
+    let bothSelection = "start"; 
+
     //This is where the game will acutally take place ending when 
     //either a player gets blackjack, busts, or both players stand
-    let playerSelection; 
-    let buttons = document.querySelectorAll(".button");
+        buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const img = button.querySelector("img");
+            playerSelection = img.alt; 
+            if(playerSelection == "hit"){ 
+                hit(playerCards, playerHand, playerCards.length);
+                playerAmount += playerCards[playerCards.length -1].value;
+                playerPoints.innerHTML = playerAmount;  
+            }
+            if(dealerAmount >= 18){
+                dealerSelection = "stand";
+                dealer.innerHTML = "dealer stands";  
+            }
+            if(dealerAmount < 18){
+                hit(dealerCards, dealerHand, dealerCards.length);
+                dealerAmount += dealerCards[dealerCards.length -1].value;  
+                dealerSelection = "hit"; 
+                dealer.innerHTML = "dealer hits"; 
+            }
+            if(dealerSelection == "stand" && playerSelection == "stand"){
+                bothSelection = "stand"; 
+            }
+            if(playerAmount > 21){
+                endGame("Bust Player");  
+            }
+            if(dealerAmount > 21){
+                endGame("Bust Dealer"); 
+            }
+            if(playerAmount == 21){
+                endGame("BlackJack Player"); 
+            }
+            if(dealerAmount == 21){
+                endGame("Blackjack dealer"); 
+            }
+            if(bothSelection == "stand"){
+                if(dealerAmount < playerAmount){
+                    endGame("player wins");  
+                }
+                if(dealerAmount > playerAmount){
+                    endGame("Dealer Wins"); 
+                }
+                if(dealerAmount == playerAmount){
+                    endGame("tie"); 
+                }
+            }
+        });
+    });
+    
+    
+}
+
+//When the player or dealer selects hit they are given a newCard in their array 
+//and visually on the screen
+function hit(user, userHand, length){
+    user.push(deck.pop());
+    displayCards(user, userHand, length-1);  
+}
+
+function endGame(how){
+    result.innerHTML = how;   
+}
+
+/*
+function playerTurn(){
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
             const img = button.querySelector("img");
-            playerSelection = img.alt;
-            
+            playerSelection = img.alt; 
+            if(playerSelection == "hit"){ 
+                hit(playerCards, playerHand, playerCards.length); 
+                return "hit"
+            }
+            else{
+                return "stand"; 
+            }
         });
-    }); 
-    
-    
-        
-          
-
-    
-       
-    
+    });
 }
+*/
 
 //displays the specific card from each hand that I want 
 function displayCards(user, userHand, num){
@@ -383,9 +452,3 @@ function displayCards(user, userHand, num){
 playGame(); 
 
 
-//When the player or dealer selects hit they are given a newCard in their array 
-//and visually on the screen
-function hit(user){
-    user.push(deck.pop()); 
-    console.log("hit"); 
-}
