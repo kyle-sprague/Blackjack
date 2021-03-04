@@ -15,10 +15,12 @@ let buttons = document.querySelectorAll(".button");
 let result = document.querySelector(".results-container"); 
 
 //card is an object that all cards are based on
-function Card(name, suit, value){
-    this.name = name; 
-    this.suit = suit; 
-    this.value = value; 
+class Card {
+    constructor(name, suit, value) {
+        this.name = name;
+        this.suit = suit;
+        this.value = value;
+    }
 }
 
 //deck starts as an empty array
@@ -101,51 +103,62 @@ function playGame(){
     let dealerSelection; 
     let bothSelection = "start"; 
 
+    console.log(dealerAmount); 
+
     //This is where the game will acutally take place ending when 
     //either a player gets blackjack, busts, or both players stand
         buttons.forEach((button) => {
         button.addEventListener("click", () => {
             const img = button.querySelector("img");
             playerSelection = img.alt; 
+            
             if(playerSelection == "hit"){ 
                 hit(playerCards, playerHand, playerCards.length);
                 playerAmount += playerCards[playerCards.length -1].value;
                 playerPoints.innerHTML = playerAmount;  
             }
-            if(dealerAmount >= 18){
+            if(dealerAmount >= 17){
                 dealerSelection = "stand";
                 dealer.innerHTML = "dealer stands";  
             }
-            if(dealerAmount < 18){
+            else if(dealerAmount < 17){
                 hit(dealerCards, dealerHand, dealerCards.length);
                 dealerAmount += dealerCards[dealerCards.length -1].value;  
                 dealerSelection = "hit"; 
                 dealer.innerHTML = "dealer hits"; 
+                
             }
             if(dealerSelection == "stand" && playerSelection == "stand"){
                 bothSelection = "stand"; 
             }
             if(playerAmount > 21){
-                endGame("Bust Player");  
+                endGame("Bust Player"); 
+                tempImg.remove(); 
             }
             if(dealerAmount > 21){
                 endGame("Bust Dealer"); 
+                tempImg.remove(); 
             }
             if(playerAmount == 21){
-                endGame("BlackJack Player"); 
+                endGame("BlackJack Player");
+                tempImg.remove(); 
             }
             if(dealerAmount == 21){
                 endGame("Blackjack dealer"); 
+                tempImg.remove();
             }
-            if(bothSelection == "stand"){
+            else if(bothSelection == "stand"){
                 if(dealerAmount < playerAmount){
                     endGame("player wins");  
+                    tempImg.remove(); 
                 }
                 if(dealerAmount > playerAmount){
                     endGame("Dealer Wins"); 
+                    tempImg.remove(); 
                 }
                 if(dealerAmount == playerAmount){
                     endGame("tie"); 
+                    tempImg.remove();
                 }
             }
         });
@@ -158,30 +171,16 @@ function playGame(){
 //and visually on the screen
 function hit(user, userHand, length){
     user.push(deck.pop());
-    displayCards(user, userHand, length-1);  
+    displayCards(user, userHand, length); 
 }
 
+//endgame is the function that is called when the game ends and it displays the results
 function endGame(how){
-    result.innerHTML = how;   
+    result.innerHTML = how;
+    displayCards(dealerCards, dealerHand, 0);   
 }
 
-/*
-function playerTurn(){
-    buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const img = button.querySelector("img");
-            playerSelection = img.alt; 
-            if(playerSelection == "hit"){ 
-                hit(playerCards, playerHand, playerCards.length); 
-                return "hit"
-            }
-            else{
-                return "stand"; 
-            }
-        });
-    });
-}
-*/
+
 
 //displays the specific card from each hand that I want 
 function displayCards(user, userHand, num){

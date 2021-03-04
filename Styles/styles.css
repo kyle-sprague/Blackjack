@@ -2,10 +2,12 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: url("https://www.vectorgraphit.com/wp-content/uploads/2015/12/55.jpg") no-repeat;
+    background-size: 100% 100vh;
 }
 
 .dealer{
-    background-color: grey; 
+    
     width: 70%; 
     height: 250px;
     display: flex;
@@ -15,49 +17,54 @@ body{
 }
 
 .dealer-hand{
-    background-color: red;
+    
     width: 70%; 
-    height: 250px; 
-    margin: 20px; 
+    height: 50px; 
+    margin-top: 10%; 
+    margin-bottom: 4%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .results-container{
-    background-color:green; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    background: grey; 
+    border-radius: 5rem;
+    color: green; 
     width: 50%; 
     height: 250px; 
     margin: 50px; 
 }
 
 .player{
-    background-color: grey; 
-    width: 70%; 
-    height: 300px;
+    
+    width: 30%; 
+    height: 100px;
     display: flex;
-    flex-direction: column;
-    align-items: center; 
-    margin: 50px; 
+    justify-content: center; 
+    margin: 10px; 
 }
 
 .player-hand{
-    background-color: red;
     width: 70%; 
     height: 300px; 
-    margin: 20px;
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: center; 
 }
 
 img{
-    width: 10%; 
-    margin: 10px; 
+    width: 7%; 
+    margin: 5px; 
 }
 
-.options img{
-    width: 70%; 
+.player img{
+    width: 50%; 
 }
 
 .button{
@@ -65,7 +72,16 @@ img{
     justify-content: center;
 }
 
-.options{
-    display: flex;
-    justify-content: center;
+
+.dealer-play{
+    font-size: large;
+    color: red; 
+    background-color: black;
+    border-radius: 5rem;
+}
+
+.player-count{
+    background: black; 
+    border-radius: 3rem;
+    color: red; 
 }
